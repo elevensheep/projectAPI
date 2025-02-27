@@ -39,16 +39,22 @@ class News:
     def donga(self, pageNum):
         pass
     def digitalTimes(self, pageNum):
-        # section_num : 정치 : 2400, 경제 : 3200, 산업 : 2200, ict : 2000, 금융 : 3100, 부동산 : 3500, 국제 : 2300, 사회 : 3700
-        categorys = [2400, 3200, 2200, 2000, 3100, 3500, 2300, 3700]
+        # Section numbers mapping
+        categorys = {
+            'politics': '2400',
+            'economy': '3200',
+            'society': '3700',
+            'international': '2300',
+            'sports': '0300'
+        }
         results = {}
 
-        for category in categorys:
-            url = f'https://www.dt.co.kr/section.html?section_num={category}&cpage={pageNum}'
+        for category, section_num in categorys.items():
+            url = f'https://www.dt.co.kr/section.html?section_num={section_num}&cpage={pageNum}'
             soup = self.get(url)
-            texts = self.parse(soup)
-            
-            results[category] = texts 
+            texts = self.parse(soup) 
+
+            results[category] = texts  
         
         return results
     def jtbc(self, pageNum):
